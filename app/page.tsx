@@ -2,7 +2,36 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
+const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 36 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
+};
+const fadeLeft = {
+  hidden: { opacity: 0, x: -48 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.8, ease } },
+};
+const fadeRight = {
+  hidden: { opacity: 0, x: 48 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.8, ease } },
+};
+const fadeIn = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0.9, ease: "easeOut" as const } },
+};
+const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
+const VP = { once: true, amount: 0.2 } as const;
 
 const NAV_LINKS = [
   { label: "O EMPREENDIMENTO", href: "#empreendimento" },
@@ -37,10 +66,12 @@ export default function Home() {
         <div className="relative h-screen w-full">
           <Image
             src="/images/background.jpg"
-            alt="Grand'Oro"
+            alt="Grand'Oro Vila Barth — Torre única na Vila Barth"
             fill
             className="object-cover object-center"
             priority
+            sizes="100vw"
+            quality={85}
           />
           <div className="absolute inset-0 bg-[#030e1d]/20" />
           {/* Left gradient */}
@@ -53,13 +84,19 @@ export default function Home() {
           />
 
           {/* GO badge — top center */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-16 md:w-24 md:h-24">
+          <motion.div
+            className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-16 md:w-24 md:h-24"
+            initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }}
+          >
             <Image src="/images/logo-header.png" alt="GO" fill className="object-contain" />
-          </div>
+          </motion.div>
 
           {/* Principal logo — vertically centered, left */}
           <div className="absolute inset-y-0 left-6 md:left-16 lg:left-32 flex items-center">
-            <div className="w-[180px] sm:w-[260px] md:w-[340px] lg:w-[412px]">
+            <motion.div
+              className="w-[180px] sm:w-[260px] md:w-[340px] lg:w-[412px]"
+              initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            >
               <Image
                 src="/images/logo-banner.png"
                 alt="Grand'Oro Vila Barth"
@@ -67,7 +104,7 @@ export default function Home() {
                 height={264}
                 className="object-contain w-full h-auto"
               />
-            </div>
+            </motion.div>
           </div>
         </div>
 
@@ -79,30 +116,32 @@ export default function Home() {
         </div>
 
         {/* Stats bar */}
-        <div className="bg-white py-5 md:py-7 border-b border-[#e8e2d9]">
-          <div className="max-w-3xl mx-auto px-4 flex items-center justify-center gap-6 sm:gap-12 md:gap-20">
-            <div className="text-center">
-              <div className="flex items-end gap-1 justify-center">
-                <span
-                  className="text-4xl sm:text-5xl md:text-6xl font-light text-[#030e1d]"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
-                  127
-                </span>
-                <span className="text-xs sm:text-sm text-[#b8ada0] mb-1.5">M²</span>
-              </div>
+        <div className="bg-[#030e1d] py-7 md:py-10">
+          <motion.div
+            className="max-w-4xl mx-auto px-6 flex items-center justify-center gap-0"
+            variants={stagger} initial="hidden" whileInView="show" viewport={VP}
+          >
+            <motion.div variants={fadeIn} className="flex-1 h-px bg-[#b7a47a]/50 hidden sm:block" />
+            <div className="flex items-center gap-0">
+              <motion.div variants={fadeUp} className="px-4 sm:px-8 md:px-12 text-center">
+                <div className="flex items-end gap-1 justify-center">
+                  <span className="text-5xl sm:text-6xl md:text-7xl font-light text-[#b7a47a]" style={{ fontFamily: "var(--font-heading)" }}>127</span>
+                  <span className="text-sm md:text-base text-[#b7a47a] mb-2 font-light">M²</span>
+                </div>
+              </motion.div>
+              <div className="w-px h-12 bg-[#b7a47a]/50" />
+              <motion.div variants={fadeUp} className="px-4 sm:px-8 md:px-12 text-center">
+                <div className="text-4xl sm:text-5xl font-light text-[#b7a47a]" style={{ fontFamily: "var(--font-heading)" }}>3</div>
+                <span className="text-[9px] tracking-[0.25em] text-[#b7a47a]/80 uppercase">Suítes</span>
+              </motion.div>
+              <div className="w-px h-12 bg-[#b7a47a]/50" />
+              <motion.div variants={fadeUp} className="px-4 sm:px-8 md:px-12 text-center">
+                <div className="text-4xl sm:text-5xl font-light text-[#b7a47a]" style={{ fontFamily: "var(--font-heading)" }}>2</div>
+                <span className="text-[9px] tracking-[0.25em] text-[#b7a47a]/80 uppercase">Vagas</span>
+              </motion.div>
             </div>
-            <div className="w-px h-10 bg-[#b7a47a]/40" />
-            <div className="text-center">
-              <div className="text-3xl sm:text-4xl font-light text-[#030e1d]" style={{ fontFamily: "var(--font-heading)" }}>3</div>
-              <span className="text-[9px] tracking-[0.2em] text-[#b8ada0] uppercase">Suítes</span>
-            </div>
-            <div className="w-px h-10 bg-[#b7a47a]/40" />
-            <div className="text-center">
-              <div className="text-3xl sm:text-4xl font-light text-[#030e1d]" style={{ fontFamily: "var(--font-heading)" }}>2</div>
-              <span className="text-[9px] tracking-[0.2em] text-[#b8ada0] uppercase">Vagas</span>
-            </div>
-          </div>
+            <motion.div variants={fadeIn} className="flex-1 h-px bg-[#b7a47a]/50 hidden sm:block" />
+          </motion.div>
         </div>
 
       </section>
@@ -129,6 +168,8 @@ export default function Home() {
             className="lg:hidden flex flex-col gap-1.5 p-2"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Menu"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
           >
             <span className={`block w-6 h-px bg-[#030e1d] transition-transform ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
             <span className={`block w-6 h-px bg-[#030e1d] transition-opacity ${menuOpen ? "opacity-0" : ""}`} />
@@ -138,7 +179,7 @@ export default function Home() {
 
         {/* Mobile menu */}
         {menuOpen && (
-          <div className="lg:hidden bg-white border-t border-[#e8e2d9] px-6 py-4 flex flex-col gap-4">
+          <div id="mobile-menu" className="lg:hidden bg-white border-t border-[#e8e2d9] px-6 py-4 flex flex-col gap-4" role="navigation" aria-label="Menu mobile">
             {NAV_LINKS.map((l) => (
               <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)} className="text-[11px] tracking-[0.2em] text-[#030e1d] hover:text-[#b7a47a] transition-colors uppercase">
                 {l.label}
@@ -152,142 +193,140 @@ export default function Home() {
       </nav>
 
       {/* ── TAGLINE ── */}
-      <section className="bg-white py-16 md:py-28 px-6 text-center">
-        <p className="text-[10px] tracking-[0.4em] text-[#b8ada0] mb-6 md:mb-8 uppercase">
+      <motion.section
+        className="bg-white pt-16 pb-10 md:pt-24 md:pb-14 px-6 text-center"
+        variants={stagger} initial="hidden" whileInView="show" viewport={VP}
+      >
+        <motion.p variants={fadeUp} className="uppercase text-black"
+          style={{ fontFamily: "var(--font-heading)", fontWeight: 300, fontSize: "clamp(13px, 3.5vw, 21px)", lineHeight: 1.2, letterSpacing: "0.38em" }}
+        >
           Do ponto mais alto da Vila Barth,
-        </p>
-        <h1
-          className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light leading-snug uppercase tracking-wider text-[#030e1d]"
-          style={{ fontFamily: "var(--font-heading)" }}
+        </motion.p>
+        <motion.h1 variants={fadeUp} className="uppercase text-black mt-2"
+          style={{ fontFamily: "var(--font-heading)", fontWeight: 300, fontSize: "clamp(22px, 5vw, 36px)", lineHeight: 1.2, letterSpacing: "0.38em" }}
         >
           Um novo ícone começa
-        </h1>
-        <h1
-          className="text-5xl sm:text-6xl md:text-8xl lg:text-[9rem] font-light leading-none uppercase tracking-widest text-[#030e1d]"
-          style={{ fontFamily: "var(--font-heading)" }}
+        </motion.h1>
+        <motion.h1 variants={fadeUp} className="uppercase text-black mt-1"
+          style={{ fontFamily: "var(--font-heading)", fontWeight: 300, fontSize: "clamp(40px, 9vw, 64px)", lineHeight: 1.2, letterSpacing: "0.38em" }}
         >
           Nascer
-        </h1>
-      </section>
+        </motion.h1>
+      </motion.section>
 
       {/* ── EMPREENDIMENTO ── */}
-      <section id="empreendimento" className="bg-white pb-16 md:pb-28 px-6 md:px-16">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-          {/* Left: two building images + tagline */}
-          <div>
-            <div className="grid grid-cols-2 gap-2 md:gap-3">
-              <div className="relative aspect-[3/4]">
-                <Image src="/images/building-facade1.jpg" alt="Grand'Oro Fachada" fill className="object-cover" />
-              </div>
-              <div className="relative aspect-[3/4]">
-                <Image src="/images/building-facade2.jpg" alt="Grand'Oro Detalhe" fill className="object-cover" />
-              </div>
-            </div>
-            <div className="mt-5 md:mt-6">
-              <h2
-                className="text-2xl sm:text-3xl md:text-4xl font-light leading-tight uppercase text-[#030e1d]"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
-                O VALOR<br />DE VIVER<br />
-                <span className="text-[#b7a47a]">O QUE É RARO</span>
-              </h2>
-            </div>
-          </div>
+      <section id="empreendimento" className="bg-white pb-16 md:pb-24 px-6 md:px-16">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-[35fr_25fr_40fr] gap-6 lg:gap-8 items-start">
 
-          {/* Right: description */}
-          <div className="flex flex-col justify-center pt-4">
-            <p className="text-sm leading-7 text-[#888] mb-5">
-              Grand&apos;Oro é mais do que um breve lançamento. É um gesto. Um marco.
-            </p>
-            <p className="text-sm leading-7 text-[#888] mb-5">
+          <motion.div variants={fadeLeft} initial="hidden" whileInView="show" viewport={VP} className="relative w-full aspect-[3/5] max-h-[60vh] lg:max-h-none">
+            <Image src="/images/building-facade1.jpg" alt="Grand'Oro Fachada" fill className="object-cover" />
+          </motion.div>
+
+          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={VP} className="flex flex-col gap-8">
+            <div className="relative w-full aspect-[4/5]">
+              <Image src="/images/imagem-nascer.jpg" alt="Grand'Oro Detalhe" fill className="object-cover" />
+            </div>
+            <h2 className="font-light leading-tight uppercase text-[#b7a47a]" style={{ fontFamily: "var(--font-heading)", fontSize: "36px" }}>
+              O VALOR<br />DE VIVER<br />O QUE É RARO
+            </h2>
+            <div className="w-12 h-px bg-[#b7a47a]/50" />
+          </motion.div>
+
+          <motion.div variants={fadeRight} initial="hidden" whileInView="show" viewport={VP} className="flex flex-col justify-start pt-2">
+            <p className="text-sm leading-7 text-[#888] mb-4">Grand&apos;Oro é mais do que um breve lançamento.</p>
+            <p className="text-sm leading-7 text-[#888] mb-4">
+              É um gesto.<br />Um marco.<br />
               Um símbolo de como a arquitetura pode elevar a vida das pessoas quando nasce de propósito e precisão.
             </p>
-            <p className="text-sm leading-7 text-[#888] mb-8 md:mb-10">
-              Em um dos endereços mais tradicionais da cidade, Grand&apos;Oro surge como um farol.
+            <p className="text-sm leading-7 text-[#888] mb-8">
+              Em um dos endereços mais tradicionais da cidade, Grand&apos;Oro surge como um farol:
             </p>
-            <p className="text-[11px] tracking-[0.22em] text-[#030e1d] uppercase mb-1">ELEGANTE, IMPONENTE</p>
-            <p className="text-[11px] tracking-[0.22em] text-[#030e1d] uppercase mb-8 md:mb-10">&amp; ATEMPORAL.</p>
-            <a
-              href="#contato"
-              className="inline-block border border-[#030e1d] text-[#030e1d] px-8 py-3 text-[10px] tracking-[0.3em] uppercase hover:bg-[#030e1d] hover:text-white transition-all w-fit"
-            >
+            <p className="text-[11px] tracking-[0.28em] text-[#030e1d] uppercase leading-6 mb-1">ELEGANTE, IMPONENTE</p>
+            <p className="text-[11px] tracking-[0.28em] text-[#030e1d] uppercase leading-6 mb-5">&amp; ATEMPORAL.</p>
+            <div className="w-full h-px bg-[#e0d8ce] mb-8" />
+            <a href="#contato" className="inline-block border border-[#030e1d] text-[#030e1d] px-8 py-3 text-[10px] tracking-[0.3em] uppercase hover:bg-[#030e1d] hover:text-white transition-all w-fit">
               Falar com Especialista
             </a>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* ── VIDEO ── */}
       <section className="relative py-24 md:py-36 px-6 text-center overflow-hidden">
-        <Image src="/images/banner-facade.jpg" alt="Video thumbnail" fill className="object-cover" />
-        <div className="absolute inset-0 bg-[#030e1d]/65" />
-        <div className="relative z-10">
-          <p className="text-[10px] tracking-[0.45em] text-[#b7a47a] mb-4 uppercase">
+        <Image src="/images/banner-video.png" alt="Video thumbnail" fill className="object-cover" />
+        <div className="absolute inset-0" style={{ backgroundColor: "rgba(5, 25, 44, 0.80)" }} />
+        <motion.div className="relative z-10" variants={stagger} initial="hidden" whileInView="show" viewport={VP}>
+          <motion.p variants={fadeUp} className="text-[10px] tracking-[0.45em] text-[#b7a47a] mb-4 uppercase">
             Conheça o Grand&apos;Oro mais de perto
-          </p>
-          <h2
+          </motion.p>
+          <motion.h2 variants={fadeUp}
             className="text-2xl sm:text-3xl md:text-4xl font-light text-white mb-10 md:mb-14 uppercase tracking-widest"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             Assista o Vídeo
-          </h2>
-          <div className="w-14 h-14 md:w-16 md:h-16 rounded-full border-2 border-[#b7a47a] flex items-center justify-center mx-auto hover:scale-110 transition-transform cursor-pointer">
+          </motion.h2>
+          <motion.div variants={fadeUp}
+            className="w-14 h-14 md:w-16 md:h-16 rounded-full border-2 border-[#b7a47a] flex items-center justify-center mx-auto hover:scale-110 transition-transform cursor-pointer"
+          >
             <div className="w-0 h-0 border-t-[9px] border-t-transparent border-b-[9px] border-b-transparent border-l-[16px] border-l-[#b7a47a] ml-1" />
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* ── LOCALIZAÇÃO ── */}
-      <section id="localizacao">
-        <div className="grid lg:grid-cols-2 min-h-[60vh] lg:min-h-[80vh]">
-          {/* Left: aerial image */}
-          <div className="relative min-h-[40vh] lg:min-h-full">
-            <Image src="/images/location-aerial.jpg" alt="Vista aérea Vila Barth" fill className="object-cover" />
-          </div>
+      <section id="localizacao" className="relative">
+        {/* Background layer: beige left 52%, navy right */}
+        <div className="absolute inset-0 flex pointer-events-none" aria-hidden>
+          <div className="w-[52%]" style={{ backgroundColor: "#c4b5a7" }} />
+          <div className="flex-1 bg-[#030e1d]" />
+        </div>
 
-          {/* Right: text on warm beige */}
-          <div className="flex flex-col justify-center px-8 md:px-16 py-16 md:py-24" style={{ backgroundColor: "#ede5d8" }}>
-            <div className="mb-5">
-              <Image src="/images/logo-header.png" alt="Grand'Oro" width={52} height={52} className="object-contain" />
+        {/* Content layer: grid over the backgrounds */}
+        <div className="relative grid lg:grid-cols-[58fr_42fr] min-h-[75vh]">
+          {/* Image column */}
+          <motion.div variants={fadeLeft} initial="hidden" whileInView="show" viewport={VP}
+            className="p-8 lg:py-12 lg:pl-12 lg:pr-0 min-h-[45vh] lg:min-h-0" style={{ backgroundColor: "transparent" }}
+          >
+            <div className="relative h-full min-h-[300px]">
+              <Image src="/images/vila-barth-banner.jpeg" alt="Vista aérea Vila Barth" fill className="object-cover" />
             </div>
-            <h2
-              className="text-2xl sm:text-3xl md:text-4xl font-light mb-2 uppercase text-[#030e1d]"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
+          </motion.div>
+
+          {/* Text column */}
+          <motion.div variants={fadeRight} initial="hidden" whileInView="show" viewport={VP}
+            className="flex flex-col justify-center px-10 md:px-14 py-16 md:py-20 bg-[#030e1d] lg:bg-transparent"
+          >
+            <div className="mb-6">
+              <Image src="/images/logo-header.png" alt="Grand'Oro" width={48} height={48} className="object-contain" />
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-3 uppercase text-white" style={{ fontFamily: "var(--font-heading)" }}>
               Vila Barth:
             </h2>
-            <h3
-              className="text-sm md:text-base font-light text-[#b7a47a] mb-6 md:mb-8 uppercase tracking-widest"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
+            <p className="text-[10px] tracking-[0.28em] text-[#b7a47a] mb-8 uppercase leading-6">
               Tradição, Tranquilidade<br />e Prestígio
-            </h3>
-            <p className="text-sm leading-7 text-[#666] mb-4">
+            </p>
+            <p className="text-sm leading-6 text-[#ccc] mb-4">
               Grand&apos;Oro está estrategicamente posicionado em uma das regiões mais desejadas da cidade, cercado por conveniência, mobilidade e serviços de alto padrão.
             </p>
-            <p className="text-sm leading-7 text-[#666] mb-4">
+            <p className="text-sm leading-6 text-[#ccc] mb-4">
               Próximo às principais vias, aos polos gastronômicos, escolas, comércio e serviços essenciais, o empreendimento oferece a praticidade do cotidiano sem abrir mão da tranquilidade de um bairro tradicional e valorizado.
             </p>
-            <p className="text-sm leading-7 text-[#666]">
+            <p className="text-sm leading-6 text-[#ccc]">
               Aqui, tudo o que você precisa está ao seu redor e tudo o que você deseja está à altura do seu estilo de vida.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* ── DIFERENCIAIS ── */}
       <section id="diferenciais" className="bg-white py-16 md:py-28 px-6 md:px-20">
         <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-          <div>
-            <h2
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light uppercase leading-none text-[#030e1d]"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
-              DIFERENCIAIS<br />
-              <span className="text-[#b7a47a]">EXCLUSIVOS</span>
+          <motion.div variants={fadeLeft} initial="hidden" whileInView="show" viewport={VP}>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light uppercase leading-none text-[#030e1d]" style={{ fontFamily: "var(--font-heading)" }}>
+              DIFERENCIAIS<br /><span className="text-[#b7a47a]">EXCLUSIVOS</span>
             </h2>
-          </div>
-          <div>
+          </motion.div>
+          <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={VP}>
             <ul className="space-y-3 mb-8 md:mb-10">
               {[
                 "Torre única de 19 pavimentos",
@@ -298,170 +337,275 @@ export default function Home() {
                 "120 vagas",
                 "Dois pavimentos técnicos para garantir desempenho acústico, hidráulico e manutenção adequada",
               ].map((item) => (
-                <li key={item} className="flex items-start gap-3 text-sm text-[#666] leading-6">
+                <motion.li key={item} variants={fadeUp} className="flex items-start gap-3 text-sm text-[#666] leading-6">
                   <span className="text-[#b7a47a] mt-1 shrink-0">•</span>
                   {item}
-                </li>
+                </motion.li>
               ))}
             </ul>
-            <a
-              href="#contato"
-              className="inline-block border border-[#030e1d] text-[#030e1d] px-8 py-3 text-[10px] tracking-[0.3em] uppercase hover:bg-[#030e1d] hover:text-white transition-all"
-            >
+            <motion.a variants={fadeUp} href="#contato" className="inline-block border border-[#030e1d] text-[#030e1d] px-8 py-3 text-[10px] tracking-[0.3em] uppercase hover:bg-[#030e1d] hover:text-white transition-all">
               Falar com Especialista
-            </a>
-          </div>
+            </motion.a>
+          </motion.div>
         </div>
       </section>
 
       {/* ── APARTAMENTOS ── */}
-      <section id="apartamentos" className="py-16 md:py-28" style={{ backgroundColor: "#f5f0e8" }}>
-        <div className="max-w-7xl mx-auto px-6 md:px-16">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            <div>
-              <div className="mb-5">
-                <Image src="/images/logo-header.png" alt="Grand'Oro" width={48} height={48} className="object-contain" />
-              </div>
-              <h2
-                className="text-3xl sm:text-4xl md:text-5xl font-light uppercase mb-6 md:mb-8 leading-tight text-[#030e1d]"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
-                OS APARTAMENTOS
-              </h2>
-              <p className="text-sm leading-7 text-[#666] mb-4">
-                O Grand&apos;Oro apresenta uma tipologia única de 127m² cuidadosamente planejada para oferecer amplitude e integração.
-              </p>
-              <p className="text-sm leading-7 text-[#666]">
-                A fusão entre funcionalidade e acabamento sofisticado cria um ambiente que acolhe, impressiona e inspira.
-              </p>
-            </div>
-            <div className="relative aspect-[4/3]">
-              <Image src="/images/apartment-sala.jpg" alt="Sala integrada" fill className="object-cover" />
-            </div>
+      <section id="apartamentos" className="grid lg:grid-cols-[30fr_70fr]">
+        <motion.div variants={fadeLeft} initial="hidden" whileInView="show" viewport={VP} className="bg-[#030e1d] flex flex-col justify-center px-10 md:px-12 py-16 md:py-20">
+          <div className="mb-8">
+            <Image src="/images/logo-header.png" alt="Grand'Oro" width={48} height={48} className="object-contain" />
           </div>
-        </div>
+          <h2
+            className="text-lg md:text-xl font-light uppercase tracking-[0.22em] text-[#b7a47a] mb-5 leading-relaxed"
+            style={{ fontFamily: "var(--font-heading)" }}
+          >
+            OS APARTAMENTOS
+          </h2>
+          <div className="w-8 h-px bg-[#b7a47a]/50 mb-8" />
+          <p className="text-sm leading-7 text-[#b8ada0] mb-5">
+            O Grand&apos;Oro apresenta uma tipologia única de 127m² cuidadosamente planejada para oferecer amplitude e integração.
+          </p>
+          <p className="text-sm leading-7 text-[#b8ada0]">
+            A fusão entre funcionalidade e acabamento sofisticado cria um ambiente que acolhe, impressiona e inspira.
+          </p>
+        </motion.div>
+
+        <motion.div variants={fadeRight} initial="hidden" whileInView="show" viewport={VP} className="relative min-h-[55vh] lg:min-h-0">
+          <Image src="/images/apartamentos-banner.jpeg" alt="Sala integrada" fill className="object-cover object-center" />
+        </motion.div>
       </section>
 
       {/* ── PLANTA ── */}
-      <section id="plantas" className="bg-white py-16 md:py-28 px-6 md:px-20">
-        <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          <div>
-            <p className="text-[9px] tracking-[0.35em] text-[#b7a47a] mb-3 uppercase">Planta</p>
-            <h2
-              className="text-5xl sm:text-6xl md:text-7xl font-light uppercase text-[#030e1d] leading-none"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
-              127 M²
-            </h2>
-            <p className="text-xl sm:text-2xl font-light text-[#030e1d] mt-3" style={{ fontFamily: "var(--font-heading)" }}>
-              3 Suítes
-            </p>
-          </div>
-          <div className="relative w-full aspect-[4/3]">
-            <Image src="/images/floor-plan.jpg" alt="Planta 127m²" fill className="object-contain" />
-          </div>
-        </div>
-      </section>
+      <section id="plantas" className="bg-white pt-16 md:pt-24 pb-14 md:pb-20 px-8 md:px-16">
+        <div className="max-w-6xl mx-auto">
 
-      {/* ── FEATURES GRID ── */}
-      <section className="bg-white pb-16 md:pb-28 px-6 md:px-20">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {APARTMENT_FEATURES.map((f) => (
-              <div key={f} className="border border-[#e8e2d9] p-4 flex items-start gap-2 text-xs text-[#030e1d] leading-5">
-                <span className="text-[#b7a47a] shrink-0 mt-0.5">—</span>
-                {f}
+          {/* Top: info + planta image */}
+          <div className="grid lg:grid-cols-[35fr_65fr] gap-10 lg:gap-16 items-center mb-14 md:mb-20">
+            <motion.div variants={fadeLeft} initial="hidden" whileInView="show" viewport={VP}>
+              <p className="tracking-[0.4em] text-[#b7a47a] uppercase mb-2" style={{ fontSize: "clamp(14px, 2.5vw, 24px)" }}>
+                Planta
+              </p>
+              <div className="flex items-start leading-none">
+                <span
+                  className="font-light text-[#b7a47a]"
+                  style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(64px, 13vw, 128px)", lineHeight: 1 }}
+                >
+                  127
+                </span>
+                <span
+                  className="font-light text-[#b7a47a] mt-2 ml-1"
+                  style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(22px, 4vw, 40px)", lineHeight: 1 }}
+                >
+                  M²
+                </span>
               </div>
-            ))}
+              <p
+                className="tracking-[0.25em] text-[#b7a47a] uppercase mt-2"
+                style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(18px, 3.5vw, 32px)" }}
+              >
+                3 Suítes
+              </p>
+            </motion.div>
+
+            {/* Right: floor plan image */}
+            <motion.div variants={fadeRight} initial="hidden" whileInView="show" viewport={VP} className="relative w-full aspect-[4/3]">
+              <Image src="/images/planta.png" alt="Planta 127m²" fill className="object-contain" />
+            </motion.div>
           </div>
-          <p className="text-[9px] text-[#b8ada0]/50 text-center mt-5 tracking-widest">
-            imagem meramente ilustrativa
+
+          {/* Bottom: features grid 3×3 */}
+          <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={VP} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {APARTMENT_FEATURES.map((f) => (
+              <motion.div key={f} variants={fadeUp} className="border border-[#e0d8ce] px-4 py-3 flex items-center gap-3 text-xs text-[#030e1d] leading-5">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="shrink-0">
+                  <circle cx="9" cy="9" r="8" stroke="#b7a47a" strokeWidth="1" />
+                  <circle cx="9" cy="9" r="3.5" stroke="#b7a47a" strokeWidth="1" />
+                </svg>
+                {f}
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <p className="text-[9px] text-[#b8ada0]/50 text-center mt-6 tracking-widest uppercase">
+            Imagem meramente ilustrativa
           </p>
         </div>
       </section>
 
       {/* ── LAZER ── */}
-      <section id="lazer" className="relative flex flex-col lg:flex-row min-h-[90vh]">
-        {/* Background image — covers full section on desktop, partial on mobile */}
-        <div className="relative min-h-[50vh] lg:flex-1">
-          <Image src="/images/leisure-woman.jpg" alt="Lazer" fill className="object-cover object-center" />
-          <div className="absolute inset-0 bg-[#030e1d]/25" />
-        </div>
+      <section id="lazer" className="relative min-h-[100vh] lg:min-h-[110vh]">
+        {/* Full-section background image */}
+        <Image src="/images/lazer-banner.jpeg" alt="Lazer" fill className="object-cover object-center" />
 
-        {/* Text panel */}
-        <div className="bg-[#030e1d]/95 lg:bg-[#030e1d]/90 w-full lg:w-[420px] xl:w-[480px] shrink-0 flex flex-col justify-center p-8 md:p-12 lg:p-14">
+        <motion.div variants={fadeRight} initial="hidden" whileInView="show" viewport={VP}
+          className="absolute top-[15%] bottom-[15%] right-[4%] left-[4%] lg:left-[52%] flex flex-col justify-center px-6 py-6 lg:px-10 lg:py-8 overflow-y-auto"
+          style={{ backgroundColor: "rgba(18, 52, 78, 0.88)" }}
+        >
           <h2
-            className="text-3xl sm:text-4xl md:text-5xl font-light uppercase text-white mb-1 leading-tight"
+            className="text-4xl sm:text-5xl font-light uppercase text-[#c9b98a] mb-1 leading-tight"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             O LAZER
           </h2>
-          <h3
-            className="text-lg font-light uppercase text-[#b7a47a] mb-5 tracking-wider"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
+          <h3 className="text-sm font-light uppercase text-white/80 tracking-[0.3em] mb-6">
             Um Clube Elevado
           </h3>
-          <p className="text-sm leading-6 text-[#b8ada0] mb-3">
-            O Grand&apos;Oro conta com 2.000m² dedicado ao lazer e ao bem-estar.
+
+          <p className="text-sm leading-6 text-white/90 mb-3">
+            O Grand&apos;Oro conta com <strong className="text-white">2.000m²</strong> dedicado ao lazer e ao bem-estar.
           </p>
-          <p className="text-sm leading-6 text-[#b8ada0] mb-7">
+          <p className="text-sm leading-6 text-white/80 mb-8">
             Um espaço criado para proporcionar experiências únicas, com ambientes sofisticados que equilibram convivência, tranquilidade e saúde.
           </p>
-          <div className="grid grid-cols-2 gap-5">
+
+          <div className="grid grid-cols-2 gap-6">
             <div>
-              <p className="text-[9px] tracking-[0.25em] text-[#b7a47a] mb-3 uppercase">Áreas Internas</p>
-              <ul className="space-y-1.5">
+              <p className="text-[10px] tracking-[0.25em] text-[#c9b98a] mb-3 uppercase font-medium">Áreas Internas</p>
+              <ul className="space-y-1">
                 {["Academia", "Pilates", "Massagem", "Sauna seca e úmida", "Coworking", "Sala de reunião", "Brinquedoteca", "Espaço gourmet", "Salão de festas", "Salão de jogos", "Espaço beleza"].map((i) => (
-                  <li key={i} className="text-xs text-[#b8ada0] flex gap-2">
-                    <span className="text-[#b7a47a]">•</span>{i}
+                  <li key={i} className="text-xs text-white/80 flex gap-2">
+                    <span className="text-white/60">•</span>{i}
                   </li>
                 ))}
               </ul>
             </div>
             <div>
-              <p className="text-[9px] tracking-[0.25em] text-[#b7a47a] mb-3 uppercase">Áreas Externas</p>
-              <ul className="space-y-1.5">
+              <p className="text-[10px] tracking-[0.25em] text-[#c9b98a] mb-3 uppercase font-medium">Áreas Externas</p>
+              <ul className="space-y-1">
                 {["Piscina", "Spa", "Quadra de beach tennis", "Quadra poliesportiva", "Playground", "Pet place", "Casa de campo", "Pergolados e áreas de descanso"].map((i) => (
-                  <li key={i} className="text-xs text-[#b8ada0] flex gap-2">
-                    <span className="text-[#b7a47a]">•</span>{i}
+                  <li key={i} className="text-xs text-white/80 flex gap-2">
+                    <span className="text-white/60">•</span>{i}
                   </li>
                 ))}
               </ul>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ── GALERIA LAZER ── */}
-      <section style={{ backgroundColor: "#e8e0d4" }} className="pt-12 md:pt-16 pb-0">
-        <div className="px-6 md:px-8">
-          <h2
-            className="text-2xl sm:text-3xl md:text-4xl font-light uppercase mb-2 text-center text-[#030e1d]"
+      <section style={{ backgroundColor: "#e8e0d4" }} className="py-14 md:py-20">
+        {/* Títulos */}
+        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={VP} className="text-center mb-10 md:mb-14">
+          <motion.h2 variants={fadeUp}
+            className="text-2xl sm:text-3xl md:text-4xl font-light uppercase tracking-[0.25em] text-[#030e1d]"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             Lazer de Clube
-          </h2>
-          <p className="text-[10px] tracking-[0.4em] text-[#030e1d] text-center mb-8 md:mb-12 uppercase">
+          </motion.h2>
+          <motion.p variants={fadeUp} className="text-[10px] tracking-[0.4em] text-[#030e1d]/70 mt-2 uppercase">
             com cara de Condomínio Premium
-          </p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2">
-          <div className="relative aspect-[4/3]">
-            <Image src="/images/leisure-pool1.jpg" alt="Piscina" fill className="object-cover" />
-            <div className="absolute bottom-4 left-4">
-              <span className="text-[9px] tracking-[0.3em] text-white/80 uppercase">Piscina</span>
-            </div>
-          </div>
-          <div className="relative aspect-[4/3]">
-            <Image src="/images/leisure-pool2.jpg" alt="Academia" fill className="object-cover" />
-            <div className="absolute bottom-4 left-4">
-              <span className="text-[9px] tracking-[0.3em] text-white/80 uppercase">Academia</span>
-            </div>
-          </div>
-        </div>
-        <p className="text-[9px] text-[#b8ada0]/50 text-center py-4 tracking-widest">
-          imagem meramente ilustrativa
+          </motion.p>
+        </motion.div>
+
+        {/* Carrossel */}
+        <Carousel opts={{ align: "start", loop: true }} className="w-full px-8 md:px-14">
+          <CarouselContent className="-ml-4">
+            {([
+              "APARTAMENTO - SALA INTEGRADA - 01.jpg",
+              "APARTAMENTO - SALA INTEGRADA - 02.jpg",
+              "APARTAMENTO - SALA INTEGRADA - 03.jpg",
+              "APARTAMENTO - SUÍTE 01 - 01.jpg",
+              "APARTAMENTO - SUÍTE 01 - 02.jpg",
+              "APARTAMENTO - SUÍTE MASTER - 01.jpg",
+              "APARTAMENTO - SUÍTE MASTER - 02.jpg",
+              "APARTAMENTO - SUÍTE MASTER - 03.jpg",
+              "ÁREA COMUM - ACADEMIA - 01.jpg",
+              "ÁREA COMUM - ACADEMIA - 02.jpg",
+              "ÁREA COMUM - AÉREO - 01.jpg",
+              "ÁREA COMUM - AÉREO - 02.jpg",
+              "ÁREA COMUM - AÉREO - 03.jpg",
+              "ÁREA COMUM - ÁREA DE DESCANSO - FIRE PLACE - SALÃO DE FESTAS.jpg",
+              "ÁREA COMUM - BRINQUEDOTECA - 01.jpg",
+              "ÁREA COMUM - BRINQUEDOTECA - 02.jpg",
+              "ÁREA COMUM - CASA DE CAMPO - POOL HOUSE - EXTERNO - 01.jpg",
+              "ÁREA COMUM - CASA DE CAMPO - POOL HOUSE - EXTERNO - 02.jpg",
+              "ÁREA COMUM - CASA DE CAMPO - POOL HOUSE - EXTERNO - 03.jpg",
+              "ÁREA COMUM - CASA DE CAMPO - POOL HOUSE - INTERNO - 01.jpg",
+              "ÁREA COMUM - CASA DE CAMPO - POOL HOUSE - INTERNO - 02.jpg",
+              "ÁREA COMUM - CASA DE CAMPO - POOL HOUSE - INTERNO - 03.jpg",
+              "ÁREA COMUM - CASA DE CAMPO - POOL HOUSE - INTERNO - 04.jpg",
+              "ÁREA COMUM - CASA DE CAMPO - POOL HOUSE - INTERNO - 05.jpg",
+              "ÁREA COMUM - CASA DE CAMPO - POOL HOUSE - INTERNO - 06.jpg",
+              "ÁREA COMUM - CASA DE CAMPO - POOL HOUSE - PISCINA - 01.jpg",
+              "ÁREA COMUM - COWORKING - 01.jpg",
+              "ÁREA COMUM - COWORKING - 02.jpg",
+              "ÁREA COMUM - COWORKING - 03.jpg",
+              "ÁREA COMUM - ESPAÇO DE BELEZA.jpg",
+              "ÁREA COMUM - HALL SOCIAL - 01.jpg",
+              "ÁREA COMUM - HALL SOCIAL - 02.jpg",
+              "ÁREA COMUM - HALL SOCIAL - 03.jpg",
+              "ÁREA COMUM - HALL SOCIAL - 04.jpg",
+              "ÁREA COMUM - LAVANDERIA.jpg",
+              "ÁREA COMUM - PET PLACE - PET WASH.jpg",
+              "ÁREA COMUM - PISCINA - 01.jpg",
+              "ÁREA COMUM - PISCINA - 02.jpg",
+              "ÁREA COMUM - PLAYGROUND - SALÃO DE FESTAS.jpg",
+              "ÁREA COMUM - PLAYGROUND GERAL.jpg",
+              "ÁREA COMUM - PORTARIA - 01.jpg",
+              "ÁREA COMUM - PORTARIA - 02.jpg",
+              "ÁREA COMUM - QUADRA ESPORTIVA.jpg",
+              "ÁREA COMUM - QUADRA TENNIS.jpg",
+              "ÁREA COMUM - QUIOSQUE - CHURRASQUEIRA - 01.jpg",
+              "ÁREA COMUM - QUIOSQUE - CHURRASQUEIRA - 02.jpg",
+              "ÁREA COMUM - SALA DE DESCANSO.jpg",
+              "ÁREA COMUM - SALA DE JOGOS - 01.jpg",
+              "ÁREA COMUM - SALA DE JOGOS - 02.jpg",
+              "ÁREA COMUM - SALA DE MASSAGEM.jpg",
+              "ÁREA COMUM - SALA DE PILATES - 01.jpg",
+              "ÁREA COMUM - SALA DE PILATES - 02.jpg",
+              "ÁREA COMUM - SALA DE REUNIÃO - 01.jpg",
+              "ÁREA COMUM - SALA DE REUNIÃO - 02.jpg",
+              "ÁREA COMUM - SALÃO DE FESTAS - ESPAÇO GOURMET - 01.jpg",
+              "ÁREA COMUM - SALÃO DE FESTAS - ESPAÇO GOURMET - 02.jpg",
+              "ÁREA COMUM - SALÃO DE FESTAS - ESPAÇO GOURMET - 03.jpg",
+              "ÁREA COMUM - SALÃO DE FESTAS - ESPAÇO GOURMET - 04.jpg",
+              "ÁREA COMUM - SALÃO DE FESTAS - ESPAÇO GOURMET - 05.jpg",
+              "ÁREA COMUM - SALÃO DE FESTAS - ESPAÇO GOURMET - 06.jpg",
+              "ÁREA COMUM - SALÃO DE FESTAS - ESPAÇO GOURMET - 07.jpg",
+              "ÁREA COMUM - SAUNA SECA - 01.jpg",
+              "ÁREA COMUM - SAUNA SECA - 02.jpg",
+              "ÁREA COMUM - SAUNA UMIDA.jpg",
+              "FACHADA - 01.jpg",
+              "FACHADA - 02 - A.jpg",
+              "FACHADA - 02 - B.jpg",
+              "FACHADA - 03.jpg",
+              "FACHADA - 04 - A.jpg",
+              "FACHADA - 04 - B.jpg",
+              "FACHADA - FOTO INSERÇÃO - 01.jpg",
+              "FACHADA - FOTO INSERÇÃO - 02.jpg",
+            ] as string[]).map((filename) => {
+              const label = filename
+                .replace(/\.jpg$/i, "")
+                .replace(/\s-\s\d+(\s-\s[A-Z])?$/, "");
+              return (
+                <CarouselItem key={filename} className="pl-4 basis-[85%] sm:basis-[65%] md:basis-[55%]">
+                  <div>
+                    <div className="relative aspect-[4/3] w-full">
+                      <Image
+                        src={`/carrosel/${encodeURIComponent(filename)}`}
+                        alt={label}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 85vw, (max-width: 1024px) 65vw, 55vw"
+                      />
+                      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent" />
+                      <p className="absolute bottom-4 left-4 text-[10px] tracking-[0.28em] text-white uppercase">
+                        {label}
+                      </p>
+                    </div>
+                  </div>
+                </CarouselItem>
+              );
+            })}
+          </CarouselContent>
+          <CarouselPrevious className="left-1 bg-transparent border-[#030e1d]/30 text-[#030e1d] hover:bg-[#030e1d] hover:text-white" />
+          <CarouselNext className="right-1 bg-transparent border-[#030e1d]/30 text-[#030e1d] hover:bg-[#030e1d] hover:text-white" />
+        </Carousel>
+
+        <p className="text-[9px] text-[#b8ada0]/60 text-center mt-8 tracking-widest uppercase">
+          Imagem meramente ilustrativa
         </p>
       </section>
 
@@ -469,7 +613,7 @@ export default function Home() {
       <section id="contato" className="bg-[#030e1d]">
         <div className="grid lg:grid-cols-2 min-h-[80vh]">
           {/* Form side */}
-          <div className="flex flex-col justify-center px-8 md:px-20 py-16 md:py-24">
+          <motion.div variants={fadeLeft} initial="hidden" whileInView="show" viewport={VP} className="flex flex-col justify-center px-8 md:px-20 py-16 md:py-24">
             <h2
               className="text-3xl sm:text-4xl md:text-5xl font-light uppercase mb-8 md:mb-12 leading-tight text-white"
               style={{ fontFamily: "var(--font-heading)" }}
@@ -506,12 +650,20 @@ export default function Home() {
                 </button>
               </div>
             </form>
-          </div>
+          </motion.div>
 
           {/* Image side */}
-          <div className="relative min-h-[50vh] lg:min-h-full order-first lg:order-last">
+          <motion.div variants={fadeRight} initial="hidden" whileInView="show" viewport={VP} className="relative min-h-[50vh] lg:min-h-full order-first lg:order-last">
             <Image src="/images/contact-portrait.jpg" alt="Contato" fill className="object-cover object-top" />
-          </div>
+            <a
+              href="https://coreag.com.br/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute bottom-6 right-6 z-10"
+            >
+              <Image src="/logo-core.svg" alt="Core AG" width={56} height={16} className="h-4 w-auto brightness-0 invert" />
+            </a>
+          </motion.div>
         </div>
       </section>
 
