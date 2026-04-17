@@ -68,7 +68,16 @@ export default function Home() {
             src="/images/background.jpg"
             alt="Grand'Oro Vila Barth — Torre única na Vila Barth"
             fill
-            className="object-cover object-center"
+            className="object-cover object-center max-sm:hidden"
+            priority
+            sizes="100vw"
+            quality={85}
+          />
+          <Image
+            src="/images/background-mobile.png"
+            alt="Grand'Oro Vila Barth — Torre única na Vila Barth"
+            fill
+            className="object-cover object-center sm:hidden"
             priority
             sizes="100vw"
             quality={85}
@@ -439,7 +448,7 @@ export default function Home() {
         <Image src="/images/lazer-banner.jpeg" alt="Lazer" fill className="object-cover object-center" />
 
         <motion.div variants={fadeRight} initial="hidden" whileInView="show" viewport={VP}
-          className="absolute top-[15%] bottom-[15%] right-[4%] left-[4%] lg:left-[52%] flex flex-col justify-center px-6 py-6 lg:px-10 lg:py-8 overflow-y-auto"
+          className="relative z-10 mx-[4%] my-[15%] lg:absolute lg:top-[15%] lg:bottom-[15%] lg:right-[4%] lg:left-[52%] lg:mx-0 lg:my-0 flex flex-col justify-center px-6 py-6 lg:px-10 lg:py-8"
           style={{ backgroundColor: "rgba(18, 52, 78, 0.88)" }}
         >
           <h2
