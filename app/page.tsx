@@ -235,24 +235,33 @@ export default function Home() {
             <div className="relative w-full aspect-[4/5]">
               <Image src="/images/imagem-nascer.jpg" alt="Grand'Oro Detalhe" fill className="object-cover" />
             </div>
-            <h2 className="font-light leading-tight uppercase text-[#b7a47a]" style={{ fontFamily: "var(--font-heading)", fontSize: "36px" }}>
-              O VALOR<br />DE VIVER<br />O QUE É RARO
-            </h2>
-            <div className="w-12 h-px bg-[#b7a47a]/50" />
+            <div>
+              <h2 className="font-light uppercase text-[#b7a47a]" style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(30px, 3.4vw, 39px)", lineHeight: 1.2 }}>
+                O VALOR<br />DE VIVER<br />O QUE É RARO
+              </h2>
+              <div className="mt-3.5 w-full max-w-[232px]">
+                <div className="h-px bg-[#b7a47a]/60" />
+                <div className="mt-[3px] mx-[6%] h-px bg-[#b7a47a]/45" />
+              </div>
+            </div>
           </motion.div>
 
           <motion.div variants={fadeRight} initial="hidden" whileInView="show" viewport={VP} className="flex flex-col justify-start pt-2">
-            <p className="text-sm leading-7 text-[#888] mb-4">Grand&apos;Oro é mais do que um breve lançamento.</p>
-            <p className="text-sm leading-7 text-[#888] mb-4">
+            <p className="text-[15px] leading-[19px] text-[#888] mb-5">Grand&apos;Oro é mais do que um breve lançamento.</p>
+            <p className="text-[15px] leading-[19px] text-[#888] mb-5">
               É um gesto.<br />Um marco.<br />
               Um símbolo de como a arquitetura pode elevar a vida das pessoas quando nasce de propósito e precisão.
             </p>
-            <p className="text-sm leading-7 text-[#888] mb-8">
+            <p className="text-[15px] leading-[19px] text-[#888] mb-8">
               Em um dos endereços mais tradicionais da cidade, Grand&apos;Oro surge como um farol:
             </p>
-            <p className="text-[11px] tracking-[0.28em] text-[#030e1d] uppercase leading-6 mb-1">ELEGANTE, IMPONENTE</p>
-            <p className="text-[11px] tracking-[0.28em] text-[#030e1d] uppercase leading-6 mb-5">&amp; ATEMPORAL.</p>
-            <div className="w-full h-px bg-[#e0d8ce] mb-8" />
+            <p className="font-light uppercase text-[#030e1d]" style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(16px, 1.7vw, 21px)", lineHeight: 1.6, letterSpacing: "0.2em" }}>
+              ELEGANTE, IMPONENTE<br />&amp; ATEMPORAL.
+            </p>
+            <div className="w-full mt-3.5 mb-8">
+              <div className="h-px bg-[#b7a47a]/60" />
+              <div className="mt-[7px] mx-[6%] h-px bg-[#b7a47a]/45" />
+            </div>
             <a href="#contato" className="inline-block border border-[#030e1d] text-[#030e1d] px-8 py-3 text-[10px] tracking-[0.3em] uppercase hover:bg-[#030e1d] hover:text-white transition-all w-fit">
               Falar com Especialista
             </a>
@@ -261,8 +270,8 @@ export default function Home() {
       </section>
 
       {/* ── VIDEO ── */}
-      <section className="relative py-24 md:py-36 px-6 text-center overflow-hidden">
-        <Image src="/images/banner-video.png" alt="Video thumbnail" fill className="object-cover" />
+      <section className="relative py-24 md:py-52 px-6 text-center overflow-hidden">
+        <Image src="/images/banner-video.jpg" alt="Video thumbnail" fill className="object-cover" />
         <div className="absolute inset-0" style={{ backgroundColor: "rgba(5, 25, 44, 0.80)" }} />
         <motion.div className="relative z-10" variants={stagger} initial="hidden" whileInView="show" viewport={VP}>
           <motion.p variants={fadeUp} className="text-[10px] tracking-[0.45em] text-[#b7a47a] mb-4 uppercase">
@@ -297,7 +306,7 @@ export default function Home() {
             className="p-8 lg:py-12 lg:pl-12 lg:pr-0 min-h-[45vh] lg:min-h-0" style={{ backgroundColor: "transparent" }}
           >
             <div className="relative h-full min-h-[300px]">
-              <Image src="/images/vila-barth-banner.jpeg" alt="Vista aérea Vila Barth" fill className="object-cover" />
+              <Image src="/images/vila-barth-banner.jpg" alt="Vista aérea Vila Barth" fill className="object-cover" />
             </div>
           </motion.div>
 
@@ -380,7 +389,7 @@ export default function Home() {
           </p>
         </motion.div>
 
-        <motion.div variants={fadeRight} initial="hidden" whileInView="show" viewport={VP} className="relative min-h-[55vh] lg:min-h-0">
+        <motion.div variants={fadeRight} initial="hidden" whileInView="show" viewport={VP} className="relative min-h-[55vh] lg:min-h-[60vh]">
           <Image src="/images/apartamentos-banner.jpeg" alt="Sala integrada" fill className="object-cover object-center" />
         </motion.div>
       </section>
