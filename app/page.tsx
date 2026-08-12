@@ -42,6 +42,10 @@ const NAV_LINKS = [
   { label: "LAZER", href: "#lazer" },
 ];
 
+const APARTMENT_IMAGES = Array.from({ length: 6 }, (_, i) => `/images/apartamentos/${i + 1}.jpg`);
+
+const LAZER_IMAGES = Array.from({ length: 28 }, (_, i) => `/images/lazer/${i + 1}.jpg`);
+
 const APARTMENT_FEATURES = [
   "Sala de estar e jantar integradas",
   "Lavabo",
@@ -134,7 +138,7 @@ export default function Home() {
             <div className="flex items-center gap-0">
               <motion.div variants={fadeUp} className="px-4 sm:px-8 md:px-12 text-center">
                 <div className="flex items-end gap-1 justify-center">
-                  <span className="text-5xl sm:text-6xl md:text-7xl font-light text-[#b7a47a]" style={{ fontFamily: "var(--font-heading)" }}>127</span>
+                  <span className="text-5xl sm:text-6xl md:text-7xl font-light text-[#b7a47a]" style={{ fontFamily: "var(--font-heading)" }}>126</span>
                   <span className="text-sm md:text-base text-[#b7a47a] mb-2 font-light">M²</span>
                 </div>
               </motion.div>
@@ -157,8 +161,8 @@ export default function Home() {
 
       {/* ── NAVBAR STICKY ── */}
       <nav className="sticky top-0 z-50 bg-white border-b border-[#e8e2d9]">
-        <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-          <Image src="/images/logo-principal.png" alt="Grand'Oro" width={90} height={54} className="object-contain" />
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <Image src="/images/logo-head.png" alt="Grand'Oro" width={120} height={120} className="object-contain" />
 
           {/* Desktop links */}
           <div className="hidden lg:flex items-center gap-5 xl:gap-6">
@@ -274,20 +278,27 @@ export default function Home() {
         <Image src="/images/banner-video.jpg" alt="Video thumbnail" fill className="object-cover" />
         <div className="absolute inset-0" style={{ backgroundColor: "rgba(5, 25, 44, 0.80)" }} />
         <motion.div className="relative z-10" variants={stagger} initial="hidden" whileInView="show" viewport={VP}>
-          <motion.p variants={fadeUp} className="text-[10px] tracking-[0.45em] text-[#b7a47a] mb-4 uppercase">
-            Conheça o Grand&apos;Oro mais de perto
-          </motion.p>
           <motion.h2 variants={fadeUp}
-            className="text-2xl sm:text-3xl md:text-4xl font-light text-white mb-10 md:mb-14 uppercase tracking-widest"
-            style={{ fontFamily: "var(--font-heading)" }}
+            className="font-light uppercase text-[#c9b89a] mb-12 md:mb-16"
+            style={{
+              fontFamily: "var(--font-heading)",
+              fontSize: "clamp(24px, 4.5vw, 46px)",
+              lineHeight: 1.35,
+              letterSpacing: "0.22em",
+            }}
           >
-            Assista o Vídeo
+            Conheça o Grand&apos;Oro
+            <br />
+            mais de perto
           </motion.h2>
           <motion.div variants={fadeUp}
-            className="w-14 h-14 md:w-16 md:h-16 rounded-full border-2 border-[#b7a47a] flex items-center justify-center mx-auto hover:scale-110 transition-transform cursor-pointer"
+            className="w-16 h-16 md:w-20 md:h-20 rounded-full border border-[#b7a47a] flex items-center justify-center mx-auto hover:scale-110 transition-transform cursor-pointer"
           >
-            <div className="w-0 h-0 border-t-[9px] border-t-transparent border-b-[9px] border-b-transparent border-l-[16px] border-l-[#b7a47a] ml-1" />
+            <div className="w-0 h-0 border-t-[10px] border-t-transparent border-b-[10px] border-b-transparent border-l-[17px] border-l-[#b7a47a] ml-1.5" />
           </motion.div>
+          <motion.p variants={fadeUp} className="text-[11px] md:text-xs tracking-[0.25em] text-white/70 mt-10 md:mt-12">
+            Assista o Vídeo
+          </motion.p>
         </motion.div>
       </section>
 
@@ -317,19 +328,35 @@ export default function Home() {
             <div className="mb-6">
               <Image src="/images/logo-header.png" alt="Grand'Oro" width={48} height={48} className="object-contain" />
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-3 uppercase text-white" style={{ fontFamily: "var(--font-heading)" }}>
+            <h2
+              className="font-light mb-4 uppercase text-[#f2ece2]"
+              style={{
+                fontFamily: "var(--font-heading)",
+                fontSize: "clamp(26px, 3.2vw, 40px)",
+                lineHeight: 1.2,
+                letterSpacing: "0.22em",
+              }}
+            >
               Vila Barth:
             </h2>
-            <p className="text-[10px] tracking-[0.28em] text-[#b7a47a] mb-8 uppercase leading-6">
+            <p
+              className="text-[#b7a47a] mb-8 uppercase"
+              style={{
+                fontFamily: "var(--font-heading)",
+                fontSize: "clamp(13px, 1.3vw, 16px)",
+                lineHeight: 1.9,
+                letterSpacing: "0.2em",
+              }}
+            >
               Tradição, Tranquilidade<br />e Prestígio
             </p>
-            <p className="text-sm leading-6 text-[#ccc] mb-4">
+            <p className="text-sm leading-7 text-[#ccc] mb-6">
               Grand&apos;Oro está estrategicamente posicionado em uma das regiões mais desejadas da cidade, cercado por conveniência, mobilidade e serviços de alto padrão.
             </p>
-            <p className="text-sm leading-6 text-[#ccc] mb-4">
+            <p className="text-sm leading-7 text-[#ccc] mb-6">
               Próximo às principais vias, aos polos gastronômicos, escolas, comércio e serviços essenciais, o empreendimento oferece a praticidade do cotidiano sem abrir mão da tranquilidade de um bairro tradicional e valorizado.
             </p>
-            <p className="text-sm leading-6 text-[#ccc]">
+            <p className="text-sm leading-7 text-[#ccc]">
               Aqui, tudo o que você precisa está ao seu redor e tudo o que você deseja está à altura do seu estilo de vida.
             </p>
           </motion.div>
@@ -343,6 +370,9 @@ export default function Home() {
             <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light uppercase leading-none text-[#030e1d]" style={{ fontFamily: "var(--font-heading)" }}>
               DIFERENCIAIS<br /><span className="text-[#b7a47a]">EXCLUSIVOS</span>
             </h2>
+            <motion.a variants={fadeUp} href="#contato" className="inline-block border mt-6 border-[#030e1d] text-[#030e1d] px-8 py-3 text-[10px] tracking-[0.3em] uppercase hover:bg-[#030e1d] hover:text-white transition-all">
+              Falar com Especialista
+            </motion.a>
           </motion.div>
           <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={VP}>
             <ul className="space-y-3 mb-8 md:mb-10">
@@ -354,6 +384,7 @@ export default function Home() {
                 "Pavimento de lazer completo",
                 "120 vagas",
                 "Dois pavimentos técnicos para garantir desempenho acústico, hidráulico e manutenção adequada",
+                "Ponto para recarga veicular"
               ].map((item) => (
                 <motion.li key={item} variants={fadeUp} className="flex items-start gap-3 text-sm text-[#666] leading-6">
                   <span className="text-[#b7a47a] mt-1 shrink-0">•</span>
@@ -361,9 +392,6 @@ export default function Home() {
                 </motion.li>
               ))}
             </ul>
-            <motion.a variants={fadeUp} href="#contato" className="inline-block border border-[#030e1d] text-[#030e1d] px-8 py-3 text-[10px] tracking-[0.3em] uppercase hover:bg-[#030e1d] hover:text-white transition-all">
-              Falar com Especialista
-            </motion.a>
           </motion.div>
         </div>
       </section>
@@ -382,15 +410,34 @@ export default function Home() {
           </h2>
           <div className="w-8 h-px bg-[#b7a47a]/50 mb-8" />
           <p className="text-sm leading-7 text-[#b8ada0] mb-5">
-            O Grand&apos;Oro apresenta uma tipologia única de 127m² cuidadosamente planejada para oferecer amplitude e integração.
+            O Grand&apos;Oro apresenta uma tipologia única de 126m² cuidadosamente planejada para oferecer amplitude e integração.
           </p>
           <p className="text-sm leading-7 text-[#b8ada0]">
             A fusão entre funcionalidade e acabamento sofisticado cria um ambiente que acolhe, impressiona e inspira.
           </p>
         </motion.div>
 
-        <motion.div variants={fadeRight} initial="hidden" whileInView="show" viewport={VP} className="relative min-h-[55vh] lg:min-h-[60vh]">
-          <Image src="/images/apartamentos-banner.jpeg" alt="Sala integrada" fill className="object-cover object-center" />
+        <motion.div variants={fadeRight} initial="hidden" whileInView="show" viewport={VP} className="relative">
+          <Carousel opts={{ align: "start", loop: true }}>
+            <CarouselContent className="ml-0">
+              {APARTMENT_IMAGES.map((src, i) => (
+                <CarouselItem key={src} className="pl-0 basis-full">
+                  <div className="relative h-[55vh] lg:h-[72vh]">
+                    <Image
+                      src={src}
+                      alt={`Apartamento Grand'Oro — ambiente ${i + 1}`}
+                      fill
+                      className="object-cover object-center"
+                      sizes="(max-width: 1024px) 100vw, 70vw"
+                      priority={i === 0}
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-4 bg-black/20 border-white/50 text-white hover:bg-white hover:text-[#030e1d]" />
+            <CarouselNext className="right-4 bg-black/20 border-white/50 text-white hover:bg-white hover:text-[#030e1d]" />
+          </Carousel>
         </motion.div>
       </section>
 
@@ -409,7 +456,7 @@ export default function Home() {
                   className="font-light text-[#b7a47a]"
                   style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(64px, 13vw, 128px)", lineHeight: 1 }}
                 >
-                  127
+                  126
                 </span>
                 <span
                   className="font-light text-[#b7a47a] mt-2 ml-1"
@@ -428,7 +475,7 @@ export default function Home() {
 
             {/* Right: floor plan image */}
             <motion.div variants={fadeRight} initial="hidden" whileInView="show" viewport={VP} className="relative w-full aspect-[4/3]">
-              <Image src="/images/planta.png" alt="Planta 127m²" fill className="object-contain" />
+              <Image src="/images/planta.png" alt="Planta 126m²" fill className="object-contain" />
             </motion.div>
           </div>
 
@@ -456,30 +503,37 @@ export default function Home() {
         {/* Full-section background image */}
         <Image src="/images/lazer-banner.jpeg" alt="Lazer" fill className="object-cover object-center" />
 
+        <div className="relative z-10 lg:absolute lg:inset-0 lg:flex lg:items-center lg:justify-end lg:px-[4%] lg:py-[5%]">
         <motion.div variants={fadeRight} initial="hidden" whileInView="show" viewport={VP}
-          className="relative z-10 mx-[4%] my-[15%] lg:absolute lg:top-[15%] lg:bottom-[15%] lg:right-[4%] lg:left-[52%] lg:mx-0 lg:my-0 flex flex-col justify-center px-6 py-6 lg:px-10 lg:py-8"
+          className="mx-[4%] my-[15%] lg:mx-0 lg:my-0 lg:w-[46%] lg:max-h-full lg:overflow-y-auto flex flex-col justify-center px-6 py-8 lg:px-10 lg:py-10"
           style={{ backgroundColor: "rgba(18, 52, 78, 0.88)" }}
         >
           <h2
-            className="text-4xl sm:text-5xl font-light uppercase text-[#c9b98a] mb-1 leading-tight"
+            className="text-4xl sm:text-5xl font-light uppercase text-[#c9b98a] mb-2 leading-tight text-center"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             O LAZER
           </h2>
-          <h3 className="text-sm font-light uppercase text-white/80 tracking-[0.3em] mb-6">
+          <h3 className="text-sm sm:text-base font-light uppercase text-white/90 tracking-[0.3em] mb-6 text-center">
             Um Clube Elevado
           </h3>
 
-          <p className="text-sm leading-6 text-white/90 mb-3">
-            O Grand&apos;Oro conta com <strong className="text-white">2.000m²</strong> dedicado ao lazer e ao bem-estar.
+          <p className="text-sm leading-6 text-white/90 mb-4 text-center">
+            O Grand&apos;Oro conta com <strong className="font-semibold text-white">3.000m²</strong> dedicado ao lazer e ao bem-estar.
           </p>
-          <p className="text-sm leading-6 text-white/80 mb-8">
+          <p className="text-sm leading-6 text-white/80 mb-4 text-center">
+            São mais de <strong className="font-semibold text-white">20 opções de lazer</strong> cuidadosamente planejadas, que unem conforto, entretenimento, esporte, relaxamento e integração em espaços que valorizam cada momento do dia.
+          </p>
+          <p className="text-sm leading-6 text-white/80 mb-4 text-center">
             Um espaço criado para proporcionar experiências únicas, com ambientes sofisticados que equilibram convivência, tranquilidade e saúde.
+          </p>
+          <p className="text-sm leading-6 text-white/80 mb-8 text-center">
+            O grande destaque é a <strong className="font-semibold text-white">Casa de Campo</strong>, um espaço que traduz o conceito de clube privativo dentro do empreendimento.
           </p>
 
           <div className="grid grid-cols-2 gap-6">
             <div>
-              <p className="text-[10px] tracking-[0.25em] text-[#c9b98a] mb-3 uppercase font-medium">Áreas Internas</p>
+              <p className="text-[11px] tracking-[0.2em] text-[#c9b98a] mb-3 uppercase font-semibold">Áreas Internas</p>
               <ul className="space-y-1">
                 {["Academia", "Pilates", "Massagem", "Sauna seca e úmida", "Coworking", "Sala de reunião", "Brinquedoteca", "Espaço gourmet", "Salão de festas", "Salão de jogos", "Espaço beleza"].map((i) => (
                   <li key={i} className="text-xs text-white/80 flex gap-2">
@@ -489,7 +543,7 @@ export default function Home() {
               </ul>
             </div>
             <div>
-              <p className="text-[10px] tracking-[0.25em] text-[#c9b98a] mb-3 uppercase font-medium">Áreas Externas</p>
+              <p className="text-[11px] tracking-[0.2em] text-[#c9b98a] mb-3 uppercase font-semibold">Áreas Externas</p>
               <ul className="space-y-1">
                 {["Piscina", "Spa", "Quadra de beach tennis", "Quadra poliesportiva", "Playground", "Pet place", "Casa de campo", "Pergolados e áreas de descanso"].map((i) => (
                   <li key={i} className="text-xs text-white/80 flex gap-2">
@@ -500,6 +554,7 @@ export default function Home() {
             </div>
           </div>
         </motion.div>
+        </div>
       </section>
 
       {/* ── GALERIA LAZER ── */}
@@ -520,103 +575,19 @@ export default function Home() {
         {/* Carrossel */}
         <Carousel opts={{ align: "start", loop: true }} className="w-full px-8 md:px-14">
           <CarouselContent className="-ml-4">
-            {([
-              "APARTAMENTO - SALA INTEGRADA - 01.jpg",
-              "APARTAMENTO - SALA INTEGRADA - 02.jpg",
-              "APARTAMENTO - SALA INTEGRADA - 03.jpg",
-              "APARTAMENTO - SUÍTE 01 - 01.jpg",
-              "APARTAMENTO - SUÍTE 01 - 02.jpg",
-              "APARTAMENTO - SUÍTE MASTER - 01.jpg",
-              "APARTAMENTO - SUÍTE MASTER - 02.jpg",
-              "APARTAMENTO - SUÍTE MASTER - 03.jpg",
-              "ÁREA COMUM - ACADEMIA - 01.jpg",
-              "ÁREA COMUM - ACADEMIA - 02.jpg",
-              "ÁREA COMUM - AÉREO - 01.jpg",
-              "ÁREA COMUM - AÉREO - 02.jpg",
-              "ÁREA COMUM - AÉREO - 03.jpg",
-              "ÁREA COMUM - ÁREA DE DESCANSO - FIRE PLACE - SALÃO DE FESTAS.jpg",
-              "ÁREA COMUM - BRINQUEDOTECA - 01.jpg",
-              "ÁREA COMUM - BRINQUEDOTECA - 02.jpg",
-              "ÁREA COMUM - CASA DE CAMPO - POOL HOUSE - EXTERNO - 01.jpg",
-              "ÁREA COMUM - CASA DE CAMPO - POOL HOUSE - EXTERNO - 02.jpg",
-              "ÁREA COMUM - CASA DE CAMPO - POOL HOUSE - EXTERNO - 03.jpg",
-              "ÁREA COMUM - CASA DE CAMPO - POOL HOUSE - INTERNO - 01.jpg",
-              "ÁREA COMUM - CASA DE CAMPO - POOL HOUSE - INTERNO - 02.jpg",
-              "ÁREA COMUM - CASA DE CAMPO - POOL HOUSE - INTERNO - 03.jpg",
-              "ÁREA COMUM - CASA DE CAMPO - POOL HOUSE - INTERNO - 04.jpg",
-              "ÁREA COMUM - CASA DE CAMPO - POOL HOUSE - INTERNO - 05.jpg",
-              "ÁREA COMUM - CASA DE CAMPO - POOL HOUSE - INTERNO - 06.jpg",
-              "ÁREA COMUM - CASA DE CAMPO - POOL HOUSE - PISCINA - 01.jpg",
-              "ÁREA COMUM - COWORKING - 01.jpg",
-              "ÁREA COMUM - COWORKING - 02.jpg",
-              "ÁREA COMUM - COWORKING - 03.jpg",
-              "ÁREA COMUM - ESPAÇO DE BELEZA.jpg",
-              "ÁREA COMUM - HALL SOCIAL - 01.jpg",
-              "ÁREA COMUM - HALL SOCIAL - 02.jpg",
-              "ÁREA COMUM - HALL SOCIAL - 03.jpg",
-              "ÁREA COMUM - HALL SOCIAL - 04.jpg",
-              "ÁREA COMUM - LAVANDERIA.jpg",
-              "ÁREA COMUM - PET PLACE - PET WASH.jpg",
-              "ÁREA COMUM - PISCINA - 01.jpg",
-              "ÁREA COMUM - PISCINA - 02.jpg",
-              "ÁREA COMUM - PLAYGROUND - SALÃO DE FESTAS.jpg",
-              "ÁREA COMUM - PLAYGROUND GERAL.jpg",
-              "ÁREA COMUM - PORTARIA - 01.jpg",
-              "ÁREA COMUM - PORTARIA - 02.jpg",
-              "ÁREA COMUM - QUADRA ESPORTIVA.jpg",
-              "ÁREA COMUM - QUADRA TENNIS.jpg",
-              "ÁREA COMUM - QUIOSQUE - CHURRASQUEIRA - 01.jpg",
-              "ÁREA COMUM - QUIOSQUE - CHURRASQUEIRA - 02.jpg",
-              "ÁREA COMUM - SALA DE DESCANSO.jpg",
-              "ÁREA COMUM - SALA DE JOGOS - 01.jpg",
-              "ÁREA COMUM - SALA DE JOGOS - 02.jpg",
-              "ÁREA COMUM - SALA DE MASSAGEM.jpg",
-              "ÁREA COMUM - SALA DE PILATES - 01.jpg",
-              "ÁREA COMUM - SALA DE PILATES - 02.jpg",
-              "ÁREA COMUM - SALA DE REUNIÃO - 01.jpg",
-              "ÁREA COMUM - SALA DE REUNIÃO - 02.jpg",
-              "ÁREA COMUM - SALÃO DE FESTAS - ESPAÇO GOURMET - 01.jpg",
-              "ÁREA COMUM - SALÃO DE FESTAS - ESPAÇO GOURMET - 02.jpg",
-              "ÁREA COMUM - SALÃO DE FESTAS - ESPAÇO GOURMET - 03.jpg",
-              "ÁREA COMUM - SALÃO DE FESTAS - ESPAÇO GOURMET - 04.jpg",
-              "ÁREA COMUM - SALÃO DE FESTAS - ESPAÇO GOURMET - 05.jpg",
-              "ÁREA COMUM - SALÃO DE FESTAS - ESPAÇO GOURMET - 06.jpg",
-              "ÁREA COMUM - SALÃO DE FESTAS - ESPAÇO GOURMET - 07.jpg",
-              "ÁREA COMUM - SAUNA SECA - 01.jpg",
-              "ÁREA COMUM - SAUNA SECA - 02.jpg",
-              "ÁREA COMUM - SAUNA UMIDA.jpg",
-              "FACHADA - 01.jpg",
-              "FACHADA - 02 - A.jpg",
-              "FACHADA - 02 - B.jpg",
-              "FACHADA - 03.jpg",
-              "FACHADA - 04 - A.jpg",
-              "FACHADA - 04 - B.jpg",
-              "FACHADA - FOTO INSERÇÃO - 01.jpg",
-              "FACHADA - FOTO INSERÇÃO - 02.jpg",
-            ] as string[]).map((filename) => {
-              const label = filename
-                .replace(/\.jpg$/i, "")
-                .replace(/\s-\s\d+(\s-\s[A-Z])?$/, "");
-              return (
-                <CarouselItem key={filename} className="pl-4 basis-[85%] sm:basis-[65%] md:basis-[55%]">
-                  <div>
-                    <div className="relative aspect-[4/3] w-full">
-                      <Image
-                        src={`/carrosel/${encodeURIComponent(filename)}`}
-                        alt={label}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 640px) 85vw, (max-width: 1024px) 65vw, 55vw"
-                      />
-                      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent" />
-                      <p className="absolute bottom-4 left-4 text-[10px] tracking-[0.28em] text-white uppercase">
-                        {label}
-                      </p>
-                    </div>
-                  </div>
-                </CarouselItem>
-              );
-            })}
+            {LAZER_IMAGES.map((src, i) => (
+              <CarouselItem key={src} className="pl-4 basis-[85%] sm:basis-[65%] md:basis-[55%]">
+                <div className="relative aspect-video w-full">
+                  <Image
+                    src={src}
+                    alt={`Lazer Grand'Oro — ambiente ${i + 1}`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 85vw, (max-width: 1024px) 65vw, 55vw"
+                  />
+                </div>
+              </CarouselItem>
+            ))}
           </CarouselContent>
           <CarouselPrevious className="left-1 bg-transparent border-[#030e1d]/30 text-[#030e1d] hover:bg-[#030e1d] hover:text-white" />
           <CarouselNext className="right-1 bg-transparent border-[#030e1d]/30 text-[#030e1d] hover:bg-[#030e1d] hover:text-white" />
@@ -694,7 +665,7 @@ export default function Home() {
 
       {/* ── WHATSAPP FLOAT ── */}
       <a
-        href="https://wa.me/5500000000000"
+        href="https://wa.me/5515997264888"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 w-12 h-12 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
