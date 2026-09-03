@@ -25,7 +25,7 @@ const condor = localFont({
 });
 
 const BASE_URL = "https://grandoro.com.br";
-const FB_PIXEL_ID = "1094457696248084";
+const FB_PIXEL_ID = "1368076255438645";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
