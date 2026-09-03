@@ -24,7 +24,7 @@ const condor = localFont({
   display: "swap",
 });
 
-const BASE_URL = "https://grandoro.com.br";
+const BASE_URL = "https://grandorovilabarth.com.br/";
 const FB_PIXEL_ID = "1368076255438645";
 
 export const metadata: Metadata = {
